@@ -9,7 +9,9 @@ class IBalanceObserver:
 class PrintObserver(IBalanceObserver):
     def update(self, balance, transaction):
         """Print balance update message."""
-        print(f"[Balance Update] Applied {transaction} -> New Balance: ${balance:.2f}")
+        print(
+            f"[Balance Update] Applied {transaction} -> "
+            f"New Balance: ${balance:.2f}")
 
 
 class LowBalanceAlertObserver(IBalanceObserver):
@@ -21,4 +23,7 @@ class LowBalanceAlertObserver(IBalanceObserver):
         """Alert if balance drops below threshold."""
         self.alert_triggered = balance < self.threshold
         if self.alert_triggered:
-            print(f"[LOW BALANCE ALERT] Balance is ${balance:.2f}, below threshold of ${self.threshold:.2f}!")
+            print(
+                f"[LOW BALANCE ALERT] Balance is ${
+                    balance:.2f}, below threshold of ${
+                    self.threshold:.2f}!")

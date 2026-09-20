@@ -57,7 +57,9 @@ class Balance:
         elif transaction.category == TransactionCategory.EXPENSE:
             self.add_expense(transaction.amount)
         else:
-            raise ValueError(f"Unknown transaction category: {transaction.category}")
+            raise ValueError(
+                f"Unknown transaction category: {
+                    transaction.category}")
 
         self._notify_observers(transaction)
 

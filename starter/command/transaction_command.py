@@ -30,5 +30,6 @@ class ApplyTransactionCommand(Command):
             if self.transaction.category == TransactionCategory.INCOME
             else TransactionCategory.INCOME
         )
-        reverse_transaction = Transaction(self.transaction.amount, reverse_category)
+        reverse_transaction = Transaction(
+            self.transaction.amount, reverse_category)
         self.balance.apply_transaction(reverse_transaction)

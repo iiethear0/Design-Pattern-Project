@@ -13,23 +13,31 @@ class TestApplyTransactionCommand(unittest.TestCase):
         self.balance.reset()
 
     def test_execute_applies_income(self):
-        command = ApplyTransactionCommand(self.balance, Transaction(100, TransactionCategory.INCOME))
+        command = ApplyTransactionCommand(
+            self.balance, Transaction(
+                100, TransactionCategory.INCOME))
         command.execute()
         self.assertEqual(self.balance.get_balance(), 100)
 
     def test_execute_applies_expense(self):
-        command = ApplyTransactionCommand(self.balance, Transaction(40, TransactionCategory.EXPENSE))
+        command = ApplyTransactionCommand(
+            self.balance, Transaction(
+                40, TransactionCategory.EXPENSE))
         command.execute()
         self.assertEqual(self.balance.get_balance(), -40)
 
     def test_undo_reverses_income(self):
-        command = ApplyTransactionCommand(self.balance, Transaction(100, TransactionCategory.INCOME))
+        command = ApplyTransactionCommand(
+            self.balance, Transaction(
+                100, TransactionCategory.INCOME))
         command.execute()
         command.undo()
         self.assertEqual(self.balance.get_balance(), 0)
 
     def test_undo_reverses_expense(self):
-        command = ApplyTransactionCommand(self.balance, Transaction(40, TransactionCategory.EXPENSE))
+        command = ApplyTransactionCommand(
+            self.balance, Transaction(
+                40, TransactionCategory.EXPENSE))
         command.execute()
         command.undo()
         self.assertEqual(self.balance.get_balance(), 0)
@@ -43,13 +51,19 @@ class TestTransactionManager(unittest.TestCase):
         self.manager = TransactionManager()
 
     def test_execute_command_updates_balance(self):
-        command = ApplyTransactionCommand(self.balance, Transaction(50, TransactionCategory.INCOME))
+        command = ApplyTransactionCommand(
+            self.balance, Transaction(
+                50, TransactionCategory.INCOME))
         self.manager.execute_command(command)
         self.assertEqual(self.balance.get_balance(), 50)
 
     def test_undo_last_reverts_most_recent_command(self):
-        first = ApplyTransactionCommand(self.balance, Transaction(100, TransactionCategory.INCOME))
-        second = ApplyTransactionCommand(self.balance, Transaction(30, TransactionCategory.EXPENSE))
+        first = ApplyTransactionCommand(
+            self.balance, Transaction(
+                100, TransactionCategory.INCOME))
+        second = ApplyTransactionCommand(
+            self.balance, Transaction(
+                30, TransactionCategory.EXPENSE))
         self.manager.execute_command(first)
         self.manager.execute_command(second)
         self.assertEqual(self.balance.get_balance(), 70)
@@ -99,7 +113,9 @@ class TestApplyTransactionCommandWithFakeBalance(unittest.TestCase):
         self.assertEqual(len(fake_balance.applied_transactions), 2)
         reversed_transaction = fake_balance.applied_transactions[1]
         self.assertEqual(reversed_transaction.amount, 100)
-        self.assertEqual(reversed_transaction.category, TransactionCategory.EXPENSE)
+        self.assertEqual(
+            reversed_transaction.category,
+            TransactionCategory.EXPENSE)
 
 
 if __name__ == "__main__":

@@ -28,7 +28,8 @@ def main():
         Transaction(75, TransactionCategory.EXPENSE),
     ]
 
-    freelance_income = ExternalFreelanceIncome(1200, "INV-98765", "Mobile App Project")
+    freelance_income = ExternalFreelanceIncome(
+        1200, "INV-98765", "Mobile App Project")
     adapter = TransactionAdapter(freelance_income)
     adapted_transaction = adapter.to_transaction()
 
